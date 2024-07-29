@@ -138,9 +138,17 @@ static inline void whitespace(LexState* ls, char** _iptr) {
     RBXG_Simple_Token_Error(ls->line, (ls->columns_traversed - ls->column_newline), "Invalid spacing.");
   }
 
-  if (iptr[1] == ' ') {
-    /* Suspected spacing error. */
-    RBXG_Simple_Token_Error(ls->line, (ls->columns_traversed - ls->column_newline) + 1, "Invalid spacing.");
+  switch (iptr[1]) {
+    case ' ': {
+      /* Suspected spacing error. */
+      RBXG_Simple_Token_Error(ls->line, (ls->columns_traversed - ls->column_newline) + 1, "Invalid spacing.");
+    }
+
+    case '\0':
+    case '\n': case '\r': {
+      /* Space at end of line */
+      RBXG_Simple_Token_Error(ls->line, (ls->columns_traversed - ls->column_newline), "Invalid spacing.");
+    }
   }
 
   if (ls->tkbuf.siz > 0) {
@@ -313,4 +321,12 @@ LexOut* RBXG_Tokenize(char* contents) {
   free(ls.tkbuf.buffer);
   free(ls.tks.refs);
   return lo;
+}
+void RBXG_Free_LexOut(LexOut* lo) {
+  for (int i = 0; i < lo->siz; i++) {
+    free(lo->tks[i]->value);
+    free(lo->tks[i]);
+  }
+  free(lo->tks);
+  free(lo);
 }

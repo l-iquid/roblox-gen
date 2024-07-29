@@ -67,3 +67,5 @@ typedef struct LexState {
 } LexState;
 
 LexOut* RBXG_Tokenize(char* contents);
+void RBXG_Free_LexOut(LexOut* lo);
+/* parse.c */

@@ -23,4 +23,5 @@ void RBXG_Compile_To(const char* src_path, const char* out_path) {
   /* Done. */
   fclose(src_f);
   fclose(out_f);
+  RBXG_Free_LexOut(lo);
 }
