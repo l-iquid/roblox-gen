@@ -1,0 +1,2 @@
+CLASSDEF "Animal"
+CLASSDEF "A"

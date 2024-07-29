@@ -1,0 +1,14 @@
+CLASSDEF "Animal"
+CONSTRUCTOR "age" "name"
+SET self.age "age"
+SET self.name "name"
+ENDCONSTRUCTOR
+METHOD "Animal" "Get_Name"
+ARGUMENTS
+RETURN self.name
+ENDMETHOD
+CALL "print" "Creating Animal..."
+NEW "x" "Animal" 3 "jeb"
+VAR "__0__"
+SET "__0__" CALL "x:Get_Name()"
+CALL "print" "__0__"
